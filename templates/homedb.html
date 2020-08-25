@@ -1,0 +1,12 @@
+<html> 
+   <body>       
+         <p>Bem-vindo {{ user }} !  <span style='float:right'>  <a href="/logout">Sair</a>  </span></p> 
+         
+		<div> <h2> Banco de Dados: {{ db }}</h2></div>
+		<div> <h4> 
+			{%- for item in lista %}
+			<li><a href="{{ item }}">{{ item }}</a>
+			{%- endfor %}
+		</h4> </div>
+   </body> 
+</html> 

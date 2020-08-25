@@ -1,0 +1,9 @@
+<!doctype html>
+<title> Bancos de Dados</title>
+<h1>{{ lista|length}} bancos encontrados</h1>
+<ul>
+{%- for item in lista %}
+    <li><a href="{{ item }}">{{ item }}</a>
+
+{%- endfor %}
+</ul>
