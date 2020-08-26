@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
       <div> <h2> Banco de Dados: {{ db }}</h2></div>
+      <div> <h3> Tabela: {{ tabela }}</h2></div>
       <div> <h4>
-        {%- for tabela in tabelas %}
-        <li><a href="{{ db + '/' + tabela[0] }}">{{ tabela[0] }}</a>
+        {%- for row in select %}
+        <li><a href="{{ row }}">{{ row }}</a>
         {%- endfor %}
       </h4> </div>
 {% endblock %}
