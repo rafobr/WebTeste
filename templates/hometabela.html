@@ -1,10 +1,56 @@
 {% extends "base.html" %}
 {% block content %}
+<form action="" method = "post">
+        <head>
+            <style>
+
+            .button {
+              border: none;
+              color: white;
+              padding: 7px 16px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 14px;
+              margin: 2px 1px;
+              cursor: pointer;
+            }
+
+            .button1 {background-color: #4CAF50;} /* Green */
+            .button2 {background-color: #008CBA;} /* Blue */
+            table, th, td {
+              border: 1px solid grey;
+            }
+            </style>
+      </head>
       <div> <h2> Banco de Dados: {{ db }}</h2></div>
       <div> <h3> Tabela: {{ tabela }}</h2></div>
       <div> <h4>
-        {%- for row in select %}
-        <li><a href="{{ row }}">{{ row }}</a>
-        {%- endfor %}
+        <table>
+          <tr>
+            {%- for col in select.colunas %}
+            <th> {{ col }} </th>
+            {%- endfor %}
+            <th> Ações </th>
+          </tr>
+
+          {%- for linha in select.linhas %}
+          <tr>
+            {%- for icoluna in range(select.colunas|length) %}
+            <td>  {{ linha[icoluna] }}</a></td>
+            {%- endfor %}
+            <td>
+              <button  type='submit' class = "button button1" name="botaoEditar">Salvar</button> </a>
+              <button  type='submit' class = "button button2" name="botaoRemover">Remover</button> </a>
+
+                <<next clicar no botao editar reload a page, com a linha agora em FORM editavel, e muda o botao pra Salvar
+                  dai executa o sql e refresca td
+
+            </td>
+          </tr>
+
+          {%- endfor %}
+      </table>
       </h4> </div>
 {% endblock %}
+</form>

@@ -8,11 +8,22 @@ def query(db, query):
         cursor = sqliteConnection.cursor()
         print("Database created and Successfully Connected to SQLite")
         sqlite_select_Query = query
-        
+
         cursor.execute(sqlite_select_Query)
+        # print(cursor.description)
         record = cursor.fetchall()
+
+        #buscando nome das colunas
+        colunas = list(map(lambda x: x[0], cursor.description))
+        # print(colunas)
         cursor.close()
-        return record
+
+        resultado = {
+            'colunas': colunas,
+            'linhas' : record
+        }
+
+        return resultado
 
     except sqlite3.Error as error:
         print("Error while connecting to sqlite", error)

@@ -45,7 +45,7 @@ def login():
 
 @app.route('/files')
 def files():
-    return render_template('files.html', lista=dbs())
+    return render_template('files.html', lista=db.dbs())
 
 
 @app.route('/db/<dbname>')
@@ -62,16 +62,20 @@ def homedb(dbname):
         return redirect(url_for('login'))
 
 
-@app.route('/db/<dbname>/<tabela>')
+@app.route('/db/<dbname>/<tabela>',methods = ['POST', 'GET'])
 def hometabela(dbname, tabela):
-    if session.get('status') ==  "Logado":
-        select = db.query(dbname, 'SELECT * FROM ' + tabela + ';')
-        if select:
-            return render_template('hometabela.html',user=session['usuario'], db=dbname, tabela=tabela, select=select)
-        # else:
-        #     return render_template('hometabela.html',user=session['usuario'], db=dbname)
+    if request.method == 'GET':
+        if session.get('status') ==  "Logado":
+
+            select = db.query(dbname, 'SELECT * FROM ' + tabela + ';')
+            if select:
+                return render_template('hometabela.html',user=session['usuario'], db=dbname, tabela=tabela, select=select)
+            # else:
+            #     return render_template('hometabela.html',user=session['usuario'], db=dbname)
+        else:
+            return redirect(url_for('login'))
     else:
-        return redirect(url_for('login'))
+        pass
 
 
 
