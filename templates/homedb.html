@@ -2,7 +2,7 @@
 {% block content %}
       <div> <h2> Banco de Dados: {{ db }}</h2></div>
       <div> <h4>
-        {%- for tabela in tabelas %}
+        {%- for tabela in tabelas['linhas'] %}
         <li><a href="{{ db + '/' + tabela[0] }}">{{ tabela[0] }}</a>
         {%- endfor %}
       </h4> </div>

@@ -52,7 +52,7 @@ def files():
 def homedb(dbname):
     if session.get('status') ==  "Logado":
         tabelas = db.query(dbname, 'SELECT name FROM sqlite_master WHERE type="table" ORDER BY name;')
-        print(tabelas)
+        # print(tabelas)
 
         if tabelas:
             return render_template('homedb.html',user=session['usuario'], db=dbname, tabelas=tabelas)
@@ -68,6 +68,7 @@ def hometabela(dbname, tabela):
         if session.get('status') ==  "Logado":
 
             select = db.query(dbname, 'SELECT * FROM ' + tabela + ';')
+
             if select:
                 return render_template('hometabela.html',user=session['usuario'], db=dbname, tabela=tabela, select=select)
             # else:
@@ -75,9 +76,13 @@ def hometabela(dbname, tabela):
         else:
             return redirect(url_for('login'))
     else:
-        pass
+            select = db.query(dbname, 'SELECT * FROM ' + tabela + ';')
+
+            if select:
+                return render_template('hometabela.html',user=session['usuario'], db=dbname, tabela=tabela, select=select , edit=request.form['botao_editar'])
 
 
+                
 
 if __name__ == '__main__':
    app.run(debug = True)

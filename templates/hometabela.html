@@ -21,10 +21,17 @@
             table, th, td {
               border: 1px solid grey;
             }
+            .campo {
+              text-align: left;
+              text-decoration: none;
+              font-size: 13px;
+            }
+
+
             </style>
       </head>
       <div> <h2> Banco de Dados: {{ db }}</h2></div>
-      <div> <h3> Tabela: {{ tabela }}</h2></div>
+      <div> <h3> Tabela: {{ tabela }} {% if edit %} / Editando {{edit}} {%endif%}</h2></div>
       <div> <h4>
         <table>
           <tr>
@@ -35,16 +42,18 @@
           </tr>
 
           {%- for linha in select.linhas %}
+          {%- set index_linha = loop.index %}
           <tr>
             {%- for icoluna in range(select.colunas|length) %}
-            <td>  {{ linha[icoluna] }}</a></td>
+            <td style='padding:1x;'>  <div style="margin: 4px;"><p>
+              {% if edit == index_linha|string %} <input class='campo' type='text' size=5 style="width:100% ;height:110%;" value='{{ linha[icoluna] }}'>
+              {%else%} {{ linha[icoluna] }}
+              {%endif%}<p></div> </td>
             {%- endfor %}
             <td>
-              <button  type='submit' class = "button button1" name="botaoEditar">Salvar</button> </a>
-              <button  type='submit' class = "button button2" name="botaoRemover">Remover</button> </a>
-
-                <<next clicar no botao editar reload a page, com a linha agora em FORM editavel, e muda o botao pra Salvar
-                  dai executa o sql e refresca td
+              <button  type='submit' class = "button button1" value="{{loop.index}}" name="botao_editar"> {% if edit == index_linha|string %} Salvar {%else%}  Editar&nbsp {%endif%}</button>
+              <input  type='hidden' value="{{ linha }}" name="valor_antigo">
+              <button  type='submit' class = "button button2" value="{{loop.index}}" name="botao_remover">Remover</button>
 
             </td>
           </tr>

@@ -22,7 +22,7 @@ def query(db, query):
             'colunas': colunas,
             'linhas' : record
         }
-
+        print('resultadoquery:', resultado)
         return resultado
 
     except sqlite3.Error as error:
@@ -36,4 +36,5 @@ def dbs():
     path = 'db'
     listafiles = os.listdir(path)
     listadbs = map(lambda x: x.rsplit('.' , 1)[0], listafiles)
+    # print(list(listadbs))
     return listadbs
