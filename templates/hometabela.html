@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <form action="" method = "post">
+    {% if edit %}
+      <input  type='hidden' value="salvar" name="status">
+    {%else%}
+      <input  type='hidden' value="editar" name="status">
+    {%endif%}
+
         <head>
             <style>
 
@@ -51,9 +57,12 @@
               {%endif%}<p></div> </td>
             {%- endfor %}
             <td>
-              <button  type='submit' class = "button button1" value="{{loop.index}}" name="botao_editar"> {% if edit == index_linha|string %} Salvar {%else%}  Editar&nbsp {%endif%}</button>
-              <input  type='hidden' value="{{ linha }}" name="valor_antigo">
-              <button  type='submit' class = "button button2" value="{{loop.index}}" name="botao_remover">Remover</button>
+              <button  type='submit'  class = "button button1" value="{{loop.index}}" name="botao_acao"> {% if edit == index_linha|string %}  Salvar {%else%} Editar&nbsp {%endif%}</button>
+               {% if edit == index_linha|string %}
+                  <input  type='hidden' value="{{ linha }}" name="valor_linha">
+                  <input  type='hidden' value="{{loop.index}}" name="indice_linha">
+              {%endif%}
+              <button  type='submit' class = "button button2" value="{{linha, loop.index}}" name="botao_remover">Remover</button>
 
             </td>
           </tr>

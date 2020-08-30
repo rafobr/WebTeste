@@ -77,12 +77,24 @@ def hometabela(dbname, tabela):
             return redirect(url_for('login'))
     else:
             select = db.query(dbname, 'SELECT * FROM ' + tabela + ';')
+            if 'botao_acao' in request.form:
+                if request.form['status'] == 'salvar':
+                    if request.form['indice_linha'] == request.form['botao_acao']:
+                        return f"salvando... dados: {request.form['valor_linha']}   , campo edit = {request.form['indice_linha']}"
+                    else:
+                        return render_template('hometabela.html',user=session['usuario'], db=dbname, tabela=tabela, select=select , edit=request.form['botao_acao'])
 
-            if select:
-                return render_template('hometabela.html',user=session['usuario'], db=dbname, tabela=tabela, select=select , edit=request.form['botao_editar'])
+                elif request.form['status'] == 'editar':
+                    return render_template('hometabela.html',user=session['usuario'], db=dbname, tabela=tabela, select=select , edit=request.form['botao_acao'])
+            elif 'botao_remover' in request.form:
+                res = request.form['botao_remover']
+                print(res)
+                return f"Removendo... dados: {request.form['botao_remover']}   , campo edit = {request.form['botao_remover'][0][0]}"
+
+            else:
+                return "q botao ??"
 
 
-                
 
 if __name__ == '__main__':
    app.run(debug = True)

@@ -22,7 +22,7 @@ def query(db, query):
             'colunas': colunas,
             'linhas' : record
         }
-        print('resultadoquery:', resultado)
+        #print('resultadoquery:', resultado)
         return resultado
 
     except sqlite3.Error as error:
