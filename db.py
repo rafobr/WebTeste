@@ -1,8 +1,6 @@
 import os
 import sqlite3
 
-#teste
-
 def query(db, query):
 
     try:
